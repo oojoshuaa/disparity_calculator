@@ -1,2 +1,2 @@
 # disparity_calculator
-Disparity calculator through different algorithms
+Disparity calculator through different algorithms.
