@@ -33,7 +33,9 @@ include Makefile
 OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
-OBJECTFILES=
+OBJECTFILES= \
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/stereo.o
 
 
 # C Compiler Flags
@@ -50,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-lopencv_calib3d -lopencv_calib3d -lopencv_contrib -lopencv_contrib -lopencv_core -lopencv_core -lopencv_features2d -lopencv_features2d -lopencv_flann -lopencv_flann -lopencv_gpu -lopencv_gpu -lopencv_highgui -lopencv_highgui -lopencv_imgproc -lopencv_imgproc -lopencv_legacy -lopencv_legacy -lopencv_ml -lopencv_ml -lopencv_objdetect -lopencv_objdetect -lopencv_ocl -lopencv_ocl -lopencv_photo -lopencv_photo -lopencv_stitching -lopencv_stitching -lopencv_superres -lopencv_superres -lopencv_ts -lopencv_ts -lopencv_video -lopencv_video -lopencv_videostab -lopencv_videostab
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -58,7 +60,17 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/disparity_calculator: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/disparity_calculator ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/disparity_calculator ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/main.o: main.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I/usr/include/opencv -I/usr/include/opencv2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/stereo.o: stereo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I/usr/include/opencv -I/usr/include/opencv2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/stereo.o stereo.cpp
 
 # Subprojects
 .build-subprojects:
